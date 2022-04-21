@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roq's Favorite Calculator</title>
-    <link href = "style.css" rel = "sylesheet" type = "text/css" />
+    <link href = "style.css" rel = "stylesheet" type = "text/css" />
 </head>
 <body>
     <script src ="eval.js" defer ></script>
+
+    <div class = "calculator">
+        <h2>Roq's Calculator</h2>
     <!--Display up top with 4 x 4 Calculator w/ operations on the side-->
 
-    <div><p class = "dispaly"> </p> </div>
+    <div><p id = "display"> </p> </div>
 
     <!-- 7,8, 9 and division-->
-    <div class = "Row1"> 
+    <div class = "Rows"> 
         <button class = "numbers" id = "7"> 7 </button>
         <button class = "numbers" id = "8"> 8 </button>
         <button class = "numbers" id = "9"> 9 </button>
@@ -22,7 +25,7 @@
     </div>
 
     <!-- 4, 5, 6 and multiplication-->
-    <div class = "Row2"> 
+    <div class = "Rows"> 
         <button class = "numbers" id = "4"> 4 </button>
         <button class = "numbers" id = "5"> 5 </button>
         <button class = "numbers" id = "6"> 6 </button>
@@ -30,21 +33,25 @@
     </div>
 
     <!-- 1,2, 3 and subtraction-->
-    <div class = "Row3"> 
-        <button class = "numbers" id = "1"> 1 </button>
+    <div class = "Rows"> 
+        <button class = "numbers" id = "1" value ="1"> 1 </button>
         <button class = "numbers" id = "2"> 2 </button>
         <button class = "numbers" id = "3"> 3 </button> 
         <button class = "operations" id = "subtract"> - </button>
     </div>
 
     <!-- 0, decimal, equal and addition-->
-    <div class = "Row4"> 
+    <div class = "Rows"> 
         <button class = "numbers" id = "0"> 0 </button>
         <button class = "numbers" id = "decimal"> . </button>
         <button id = "equal"> = </button>
         <button class = "operations" id = "plus"> + </button>
     </div>
 
+  <div class = "Rows">
+    <button class = "operations" id = "clear"> Clear/Reset </button>
+  </div>
+</div>
     
 </body>
 </html>
