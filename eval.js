@@ -17,20 +17,24 @@ let calculator = document.querySelector('.calculator');
       let operations = calculator.dataset.operations;
       let calcValue = calculate(firstValue, operations, secondValue);
 
-      if(!action && displayNum === '0' || previousKeyType === 'operations')      {
+      if(!action){
+        if (displayNum === '0' || previousKeyType === 'operations' || previousKeyType === 'equal') {
           display.textContent = keyContent; 
       } else {
         display.textContent = displayNum + keyContent;
-        console.log('number key!');
-        calculator.dataset.previousKey = 'number';
       }
+        console.log('number key!');
+        calculator.dataset.previousKeyType = 'number';
+    }
       
       if (action === 'plus' || action === 'subtract' ||
        action === 'multiply' || action === 'divide'){
         console.log("operator key!");
         
       //Checks for 1st value and operator since 2nd value ALWAYS exist
-      if (firstValue && operations && previousKeyType !== 'operations'){          display.textContent = calcValue;
+      if (firstValue && operations && previousKeyType !== 'operations' && previousKeyType !== 'equal'){  
+        calcValue;
+        display.textContent = calcValue;
       //Update calculated value as firstValue
       calculator.dataset.firstValue = calcValue;
       } else {
@@ -44,26 +48,32 @@ let calculator = document.querySelector('.calculator');
 
       if (action === 'decimal'){
         console.log('decimal key!');
-        calculator.dataset.previousKey = 'decimal';
+        calculator.dataset.previousKeyType = 'decimal';
+        
       //Do nothing if string has a dot
         if(!displayNum.includes('.')) {
-          if (previousKeyType === 'operations') {
-          display.textContent = '0.';
-        } else {
-        display.textContent = displayNum + '.';
-        } 
-      }
+          display.textContent = displayNum + '.';
+        } else if (previousKeyType === 'operations') {
+            display.textContent = '0.';
+        }
     }
 
       if (action === 'clear'){
+    //reset calculator to initial state
+        calculator.dataset.firstValue = '';
+        calculator.dataset.modValue = '';
+        calculator.dataset.operator = '';
+        calculator.dataset.previousKeyType = '';
+        
+        display.textContent = 0;
         calculator.dataset.previousKeyType = 'clear';
         console.log('reset key!');
       }
 
       if(action === 'equal'){
-      display.textContent = calculate(firstValue, operations, secondValue);
-        calculator.dataset.previousKeyType = 'equal';
-        console.log('equal key!')
+        firstValue = calculator.dataset.firstValue;
+        operations = calculator.dataset.operations;
+        secondValue = displayNum;
         
       if (firstValue) {
         if (previousKeyType === 'equal'){
@@ -72,27 +82,25 @@ let calculator = document.querySelector('.calculator');
         }
         display.textContent = calculate (firstValue, operations, secondValue);
       }
+      console.log('equal key!');
+        
       //Set modValue attribute
       calculator.dataset.modValue = secondValue;
       calculator.dataset.previousKeyType = 'equal';
        }
 
-    }
+    } //End of e.target matches button arrow function
 });
 
   //Calculate Function, 1st number, operator, and 2nd number
       let calculate = (n1, operator, n2) => {
-        //Perform calculation and return value
-        let result = '';
-
-        if (operator === 'plus'){
-          result = parseFloat(n1) + parseFloat(n2);  
-        }else if (operator === 'subtract') {
-          result = parseFloat(n1) - parseFloat(n2);          
-        } else if (operator === 'multiply') {
-          result = parseFloat(n1) * parseFloat(n2);
-        } else if (operator === 'divide'){
-          result = parseFloat(n1) / parseFloat(n2);
-        }
-        return result;
+    
+    //Perform calculation and return value
+    const firstNum = parseFloat(n1);
+    const secondNum = parseFloat(n2);
+    if (operator === 'plus') return firstNum + secondNum;
+    if (operator === 'subtract') return firstNum - secondNum;
+    if (operator === 'multiply') return firstNum * secondNum;
+    if (operator === 'divide') return firstNum / secondNum;
+        
       }
